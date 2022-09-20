@@ -1,10 +1,6 @@
 @layout('layouts/index')
 
-@set('title', 'Новости')
-
-@section('styles')
-  <link href="/css/banner.css" rel="stylesheet">
-@endsection
+@set('title', 'Сферы')
 
 @section('body')
   <div class="col-lg-12">
@@ -12,7 +8,7 @@
       <div class="card-header">
         <h4 class="card-title">{{ title }}</h4>
 
-        <a href="{{ route('news.create') }}" class="btn btn-primary btn-sm">Создать</a>
+        <a href="{{ route('areas.create') }}" class="btn btn-primary btn-sm">Создать</a>
       </div>
 
       <div class="card-body">
@@ -24,21 +20,19 @@
                 <th class="width80"><strong>#</strong></th>
 
                 <th><strong>Название</strong></th>
-                <th><strong>Описание</strong></th>
-                <th><strong>Изображение</strong></th>
+                <th><strong>Дата создания</strong></th>
 
                 <th><strong>Действия</strong></th>
               </tr>
             </thead>
             <tbody>
 
-              @each(item in news)
+              @each(item in areas)
                 <tr>
                   <td><strong>{{ item.id }}</strong></td>
-                  <td>{{ item.title }}</td>
-                  <td>{{ item.slug }}</td>
-                  <td>{{ item.viewsCount }}</td>
-                  <td><img src="{{ getImage(item.image) }}" class="news_cover_img"/></td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.createdAtForUser }}</td>
+
                   <td>
                     <div class="dropdown">
                       <button type="button" class="btn btn-success light sharp" data-toggle="dropdown"
@@ -53,10 +47,9 @@
                         </svg>
                       </button>
                       <div class="dropdown-menu" style="">
-                        <a class="dropdown-item" href="{{ route('news.show', { id: item.id }) }}">Показать</a>
-                        <a class="dropdown-item" href="{{ route('news.edit', { id: item.id }) }}">Редактировать</a>
+                        <a class="dropdown-item" href="{{ route('areas.edit', { id: item.id }) }}">Редактировать</a>
 
-                        <form action="{{ route('news.destroy', { id: item.id }, { qs: { _method: 'DELETE' } }) }}" method="POST">
+                        <form action="{{ route('areas.destroy', { id: item.id }, { qs: { _method: 'DELETE' } }) }}" method="POST">
                           <button type="submit" class="dropdown-item">Удалить</button>
 
                           {{ csrfField() }}
@@ -75,5 +68,5 @@
     </div>
   </div>
 
-  @!component('components/pagination', { obj: news })
+  @!component('components/pagination', { obj: areas })
 @endsection

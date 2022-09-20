@@ -1,9 +1,11 @@
 import News from 'App/Models/News'
 import Banner from 'App/Models/Banner'
 import User from 'App/Models/User/User'
+import Area from 'App/Models/Offer/Area'
 import Feedback from 'App/Models/Feedback'
 import Factory from '@ioc:Adonis/Lucid/Factory'
 import UserImage from 'App/Models/User/UserImage'
+import Subsection from 'App/Models/Offer/Subsection'
 import { DateTime } from 'luxon'
 import { RoleNames, UserExperienceTypes, UserTypeNames } from 'Config/user'
 
@@ -43,6 +45,23 @@ export const BannerFactory = Factory
       description: faker.lorem.paragraph(3),
       link: faker.internet.url()
     }
+  })
+  .build()
+
+/**
+ * * Offer
+ */
+
+export const AreaFactory = Factory
+  .define(Area, ({ faker }) => {
+    return { name: faker.helpers.unique(faker.lorem.word) }
+  })
+  .relation('subsections', () => SubsectionFactory)
+  .build()
+
+export const SubsectionFactory = Factory
+  .define(Subsection, ({ faker }) => {
+    return { name: faker.helpers.unique(faker.lorem.word) }
   })
   .build()
 

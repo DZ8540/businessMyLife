@@ -62,6 +62,13 @@ export const TABLES_NAMES = {
   FEEDBACKS: 'feedbacks',
 
   /**
+   * * Offer
+   */
+
+  AREAS: 'areas',
+  SUBSECTIONS: 'subsections',
+
+  /**
    * * User
    */
 
@@ -99,6 +106,14 @@ export const BANNER_TITLE_MAX_LENGTH: number = 255
 
 export const BANNER_DESCRIPTION_MIN_LENGTH: number = 10
 export const BANNER_DESCRIPTION_MAX_LENGTH: number = 2048
+
+/**
+ * * Offer
+ */
+
+export const AREA_NAME_MAX_LENGTH: number = 255
+
+export const SUBSECTION_NAME_MAX_LENGTH: number = 255
 
 /**
  * * User

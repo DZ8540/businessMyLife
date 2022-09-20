@@ -1,23 +1,23 @@
 // * Types
-import type News from 'App/Models/News'
+import type Area from 'App/Models/Offer/Area'
 import type { Err } from 'Contracts/response'
 import type { ModelPaginatorContract } from '@ioc:Adonis/Lucid/Orm'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 // * Types
 
-import NewsService from 'App/Services/NewsService'
-import NewsValidator from 'App/Validators/NewsValidator'
+import AreaService from 'App/Services/Offer/AreaService'
+import AreaValidator from 'App/Validators/Offer/AreaValidator'
 import { ResponseMessages } from 'Config/response'
 
-export default class NewsController {
+export default class AreasController {
   public async index({ request, response, route, view, session }: HttpContextContract) {
     const baseUrl: string = route!.pattern
     const page: number = request.input('page', 1)
 
     try {
-      const news: ModelPaginatorContract<News> = await NewsService.paginate({ page, baseUrl })
+      const areas: ModelPaginatorContract<Area> = await AreaService.paginate({ page, baseUrl })
 
-      return view.render('pages/news/index', { news })
+      return view.render('pages/area/index', { areas })
     } catch (err: Err | any) {
       session.flash('error', err.message)
       return response.redirect().back()
@@ -25,43 +25,30 @@ export default class NewsController {
   }
 
   public async create({ view }: HttpContextContract) {
-    return view.render('pages/news/create')
+    return await view.render('pages/area/create')
   }
 
   public async store({ request, response, session }: HttpContextContract) {
-    const payload = await request.validate(NewsValidator)
+    const payload = await request.validate(AreaValidator)
 
     try {
-      await NewsService.create(payload)
+      await AreaService.create(payload)
 
       session.flash('success', ResponseMessages.SUCCESS)
-      response.redirect().toRoute('news.index')
-    } catch (err: Err | any) {
-      session.flash('error', err.message)
-      response.redirect().back()
-    }
-  }
-
-  public async show({view, response, session, params}: HttpContextContract){
-    const id: News['id'] = params.id
-
-    try {
-      const item: News = await NewsService.get(id)
-
-      return view.render('pages/news/show', { item })
+      response.redirect().toRoute('areas.index')
     } catch (err: Err | any) {
       session.flash('error', err.message)
       return response.redirect().back()
     }
   }
 
-  public async edit({ view, response, params, session }: HttpContextContract) {
-    const id: News['id'] = params.id
+  public async edit({ view, params, response, session }: HttpContextContract) {
+    const id: Area['id'] = params.id
 
     try {
-      const item: News = await NewsService.get(id)
+      const item: Area = await AreaService.get(id)
 
-      return view.render('pages/news/edit', { item })
+      return view.render('pages/area/edit', { item })
     } catch (err: Err | any) {
       session.flash('error', err.message)
       return response.redirect().back()
@@ -69,31 +56,32 @@ export default class NewsController {
   }
 
   public async update({ request, response, session, params }: HttpContextContract) {
-    const id: News['id'] = params.id
-    const payload = await request.validate(NewsValidator)
+    const id: Area['id'] = params.id
+    const payload = await request.validate(AreaValidator)
 
     try {
-      await NewsService.update(id, payload)
+      await AreaService.update(id, payload)
 
       session.flash('success', ResponseMessages.SUCCESS)
-      return response.redirect().toRoute('news.index')
+      return response.redirect().toRoute('areas.index')
     } catch (err: Err | any) {
       session.flash('error', err.message)
       return response.redirect().back()
     }
   }
 
-  public async destroy({ response, session, params }: HttpContextContract) {
-    const id: News['id'] = params.id
+  public async destroy({ params, response, session }: HttpContextContract) {
+    const id: Area['id'] = params.id
 
     try {
-      await NewsService.delete(id)
+      await AreaService.delete(id)
 
       session.flash('success', ResponseMessages.SUCCESS)
+      return response.redirect().back()
     } catch (err: Err | any) {
+      console.log(err)
       session.flash('error', err.message)
+      return response.redirect().back()
     }
-
-    response.redirect().back()
   }
 }
