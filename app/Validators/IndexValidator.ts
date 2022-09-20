@@ -17,5 +17,6 @@ export default class IndexValidator {
     'file.extname': 'Выберите файл допустимого формата: {{ options.extnames }}',
     range: 'Значение должно быть от {{ options.start }} до {{ options.stop }}!',
     regex: ' ', // None display message
+    url: 'Введите ссылку корректного формата',
   }
 }

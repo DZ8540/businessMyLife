@@ -41,6 +41,7 @@ export const BannerFactory = Factory
       image: faker.image.business(),
       title: faker.lorem.sentence(),
       description: faker.lorem.paragraph(3),
+      link: faker.internet.url()
     }
   })
   .build()

@@ -28,3 +28,9 @@ export function getBannerFileOptions() {
     extnames: ['jpeg', 'png', 'jpg'],
   }
 }
+
+export function getBannerLinkRules(){
+  return [
+    rules.url()
+  ]
+}

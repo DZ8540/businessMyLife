@@ -15,6 +15,7 @@ export default class extends BaseSchema {
       table.string('image').notNullable()
       table.string('title').notNullable()
       table.string('description', BANNER_DESCRIPTION_MAX_LENGTH).notNullable()
+      table.string('link').notNullable()
 
       /**
        * * Timestamps
