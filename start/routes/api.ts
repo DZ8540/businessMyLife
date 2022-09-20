@@ -9,7 +9,7 @@ Route.group(() => {
     Route.group(() => {
 
         Route.get('/', 'Api/NewsController.paginate')
-        Route.get('/:slug', 'Api/NewsController.get')
+        Route.get('/:id', 'Api/NewsController.get')
     
     }).prefix('news')
 }).prefix('api')

@@ -22,17 +22,11 @@ export default class NewsService {
     }
   }
 
-  public static async get(param: News['id']): Promise<News>
-  public static async get(param: News['slug']): Promise<News>
-  public static async get(param: News['id'] | News['slug']): Promise<News> {
+  public static async get(id: News['id']): Promise<News>{
     let item: News | null
 
     try {
-      if(typeof param === News['slug']){
-        item =  await News.findBy('slug', param)
-      }else{
-        item =  await News.find(param)
-      }
+      item =  await News.find(id)
     } catch (err: any) {
       Logger.error(err)
       throw { code: ResponseCodes.DATABASE_ERROR, message: ResponseMessages.ERROR } as Err

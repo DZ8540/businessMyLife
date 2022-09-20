@@ -34,10 +34,10 @@ export default class NewsController{
     }
 
     public async get({request, response}: HttpContextContract){
-        const slug: string = request.param('slug', '')
+        const id: number = request.param('id', 1)
 
         try {
-            const item = await NewsService.get(slug)
+            const item = await NewsService.get(id)
             return response.status(200).send(new ResponseService(ResponseMessages.SUCCESS, item))
         } catch (error: Err | any) {
             throw new ExceptionService(error)

@@ -43,8 +43,7 @@ export default class NewsController {
   }
 
   public async show({view, response, session, params}: HttpContextContract){
-    const id: News['id'] = params.id
-
+    const id: News['id'] = Number(params.id)
     try {
       const item: News = await NewsService.get(id)
 
