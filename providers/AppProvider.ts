@@ -23,7 +23,7 @@ export default class AppProvider {
       config.orderByColumn = config.orderByColumn ?? 'id'
       config.limit = config.limit ?? 100
       let query = await this.orderBy(config.orderByColumn, config.orderBy).paginate(config.page, config.limit)
-
+      
       if (config.baseUrl)
         return query.baseUrl(config.baseUrl)
 
