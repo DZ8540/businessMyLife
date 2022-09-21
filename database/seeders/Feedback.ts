@@ -6,7 +6,7 @@ export default class extends BaseSeeder {
   public async run() {
 
     try {
-      await FeedbackFactory.createMany(25)
+      await FeedbackFactory.createMany(5)
     } catch (err: any) {
       Logger.error(err)
     }

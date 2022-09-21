@@ -5,6 +5,7 @@ import type { ModelPaginatorContract } from '@ioc:Adonis/Lucid/Orm'
 // * Types
 
 import Feedback from 'App/Models/Feedback'
+import FeedbackValidator from 'App/Validators/FeedbackValidator'
 import Logger from '@ioc:Adonis/Core/Logger'
 import { ResponseCodes, ResponseMessages } from 'Config/response'
 
@@ -41,6 +42,14 @@ export default class FeedbackService {
       throw { code: ResponseCodes.CLIENT_ERROR, message: ResponseMessages.ERROR } as Err
 
     return item
+  }
+
+  public static async create(payload: FeedbackValidator['schema']['props']): Promise<void>{
+    try {
+      await Feedback.create(payload)
+    } catch (error: any) {
+      throw { code: ResponseCodes.DATABASE_ERROR, message: ResponseMessages.ERROR} as Err
+    }
   }
 
   public static async delete(id: Feedback['id']): Promise<void> {

@@ -82,6 +82,7 @@ export const TABLES_NAMES = {
  * * Feedback
  */
 
+export const FEEDBACK_QUESTION_MIN_LENGTH: number = 5
 export const FEEDBACK_QUESTION_MAX_LENGTH: number = 8192
 
 /**
